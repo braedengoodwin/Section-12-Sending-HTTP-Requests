@@ -1,3 +1,13 @@
 <app-places-container title="Your Favorite Places">
-  <p>Todo...</p>
+  <p *ngIf="isFetching() && !error()" class="fallback-text">
+    Fetching favorite places
+  </p>
+
+  <p *ngIf="error()" class="fallback-text">{{ error() }}</p>
+
+  @if (places()) {
+  <app-places [places]="places()!" (selectPlace)="onRemovePlace($event)"/>
+  } @else if (places().length === 0) {
+  <p class="fallback-text">Unfortunately, no places could be found.</p>
+  }
 </app-places-container>
